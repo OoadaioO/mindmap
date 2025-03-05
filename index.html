@@ -3,9 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Markdown to Mindmap</title>
+    <style>
+        body {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Markdown to Mindmap Converter</h1>
+    <textarea id="markdown" placeholder="Enter your markdown here..."></textarea>
+    <button onclick="convertToMindmap()">Convert to Mindmap</button>
+    <div id="result"></div>
+
+    <script>
+        async function convertToMindmap() {
+            const markdown = document.getElementById('markdown').value;
+            const result = document.getElementById('result');
+            
+            try {
+                const response = await fetch('/api/mindmap', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ markdown }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to convert markdown');
+                }
+
+                const svg = await response.text();
+                result.innerHTML = svg;
+            } catch (error) {
+                console.error('Error:', error);
+                result.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
 </body>
 </html> 
