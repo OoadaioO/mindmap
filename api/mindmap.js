@@ -47,7 +47,11 @@ module.exports = async (req, res) => {
     res.status(200).send(svg);
   } catch (error) {
     console.error('Error processing markdown:', error);
-    res.status(500).json({ error: 'Failed to process markdown' });
+    res.status(500).json({ 
+      error: 'Failed to process markdown',
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 };
 

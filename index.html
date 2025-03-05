@@ -42,14 +42,20 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error('Failed to convert markdown');
+                    const errorData = await response.json();
+                    throw new Error(errorData.details || errorData.error || 'Failed to convert markdown');
                 }
 
                 const svg = await response.text();
                 result.innerHTML = svg;
             } catch (error) {
                 console.error('Error:', error);
-                result.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                result.innerHTML = `
+                    <div style="color: red; padding: 10px; border: 1px solid red; border-radius: 4px;">
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        ${error.stack ? `<pre>${error.stack}</pre>` : ''}
+                    </div>
+                `;
             }
         }
     </script>
