@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "markdown to mindmap converter",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vercel dev",
@@ -10,8 +11,13 @@
     "deploy": "vercel deploy"
   },
   "dependencies": {
-    "markmap-common": "^0.14.2",
-    "markmap-lib": "^0.14.4"
+    "html-to-image": "^1.11.13",
+    "jsdom": "^26.0.0",
+    "markmap-common": "^0.18.8",
+    "markmap-lib": "^0.18.8",
+    "markmap-render": "^0.18.8",
+    "markmap-view": "^0.18.8",
+    "node-html-to-image": "^5.0.0"
   },
   "devDependencies": {
     "vercel": "^41.3.1"

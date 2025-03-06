@@ -60,15 +60,10 @@
                     result.className = 'success';
                     result.innerHTML = '';
 
-                    // 检查并显示 SVG 和 JSON 数据
-                    if (data.res.svg) {
-						result.innerHTML += `<p>SVG</p>`; 
-                        result.innerHTML += data.res.svg; // 显示 SVG 内容
-                    }
-                    if (data.res.json) {
-                        result.innerHTML += "<p>JSON</p>";
-                        result.innerHTML += `<pre>${JSON.stringify(JSON.parse(data.res.json), null, 2)}</pre>`; // 格式化 JSON 内容
-                    }
+					if(data.res.dataUri){
+						result.innerHTML += `<img src="${data.res.dataUri}" alt="Mindmap Image" style="max-width: 100%; height: auto; margin-top: 20px;">`;
+					}
+
                 } else {
                     // 失败
                     result.className = 'error';
